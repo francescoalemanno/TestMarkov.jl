@@ -8,15 +8,15 @@ module TestMarkov
     end
     function randomize(p::NTuple{N,T}) where {N,T}
         r=sign(rand()-0.05)
-        (p[1]*r+randn()*0.05,randomize(Base.tail(p))...)
+        (p[1]*r+randn(),randomize(Base.tail(p))...)
     end
     function randomize(p::NTuple{0})
         ()
     end
     function T(S,θ)
-        perturbation=(cos(θ),sin(θ)).*0.01
+        perturbation=(cos(θ),sin(θ))
         mutation=randomize(perturbation)
-        S.+mutation
+        S .+ mutation.*0.01
     end
     function __approx_fpos(vec,el)
         metric(x)=(x-el)*(x-el)
@@ -35,7 +35,20 @@ module TestMarkov
         CartesianIndex(__approx_fpos.(vecs,els))
     end
 
-
+    function resample_state(L,ranges)
+        p=rand()
+        total=sum(L)
+        runningsum=0.0
+        stopindex=nothing
+        for i in CartesianIndices(L)
+            runningsum+=L[i]/total
+            if runningsum>=p
+                stopindex=Tuple(i)
+                break
+            end
+        end
+        getindex.(ranges,stopindex)
+    end
     function simulate(θ)
         X=0:0.1:10
         Y=0:0.1:10
@@ -49,7 +62,10 @@ module TestMarkov
             normL+=1
             S=T(S,θ)
             if i%1000 == 0
-                S=iS
+                # this step should be replaced with a resampling from the knowledge of L
+                # in this way
+                #
+                S=resample_state(L,(X,Y))
             end
         end
         X,Y,L
