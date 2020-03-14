@@ -62,9 +62,7 @@ module TestMarkov
             normL+=1
             S=T(S,θ)
             if i%1000 == 0
-                # this step should be replaced with a resampling from the knowledge of L
-                # in this way
-                #
+                # resampling from the knowledge of L
                 S=resample_state(L,(X,Y))
             end
         end
