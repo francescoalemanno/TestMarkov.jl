@@ -61,9 +61,11 @@ module TestMarkov
             L[P]+=1
             normL+=1
             S=T(S,θ)
-            if i%140 == 0
+            if i%1000 == 0
                 # resampling from the knowledge of L
-                S=resample_state(L,(X,Y))
+                #S=resample_state(L,(X,Y))
+                # or reset state
+                S=iS
             end
         end
         X,Y,L

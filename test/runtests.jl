@@ -8,7 +8,7 @@ using PyPlot
     try
         pygui(false)
         figure(figsize=(7,7))
-        imshow(tanh.((A.+B)./50),cmap="inferno")
+        imshow(tanh.((A.+B)./100),cmap="inferno")
         savefig(joinpath(@__DIR__, "paths.png"),bbox_inches_tight=true)
     catch
         println("Something went wrong during plotting")
