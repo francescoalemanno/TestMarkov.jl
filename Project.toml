@@ -3,13 +3,12 @@ uuid = "7070da69-d5c6-4e4d-8059-92107b72742e"
 authors = ["Francesco Alemanno <francescoalemanno710@gmail.com>"]
 version = "0.1.0"
 
-[deps]
+[compat]
+julia = "^1"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+PyPlot = "d330b81b-6aea-500a-939a-2ce795aea3ee"
 
 [targets]
-test = ["Test"]
-
-[compat]
-julia = "^1"
+test = ["Test","PyPlot"]

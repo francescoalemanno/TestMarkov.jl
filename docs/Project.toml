@@ -1,6 +1,0 @@
-[deps]
-Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
-TestMarkov = "7070da69-d5c6-4e4d-8059-92107b72742e"
-
-[compat]
-Documenter = "~0.24"
